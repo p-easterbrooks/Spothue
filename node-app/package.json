@@ -1,0 +1,27 @@
+{
+  "name": "spotihue",
+  "version": "1.0.0",
+  "description": "Controller to sync Philips Hue lights to Spotify",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p-easterbrooks/Spotihue.git"
+  },
+  "keywords": [
+    "spotify",
+    "hue"
+  ],
+  "author": "p-easterbrooks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/p-easterbrooks/Spotihue/issues"
+  },
+  "homepage": "https://github.com/p-easterbrooks/Spotihue#readme",
+  "dependencies": {
+    "chalk": "^2.4.1"
+  }
+}
