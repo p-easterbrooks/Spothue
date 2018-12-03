@@ -38,10 +38,10 @@ server.listen(port, (err) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer BQAOrniWskRJp2tRsE3JUjhpn1nP5loQKko3BLzhIkxYehq_NZaED_nG1TINryjsGwwl0RdGmRZ06UrzUewI7gK3eVaR_W7IRUAWeHDT7OAwWre5QnYTvtF3iA9llbsgUpFYLKFrxpaQF9yVdo4M_XAfgQE'
+                'Authorization': 'Bearer BQDKLhs0e4MUX0ue1s8naIM4dOLdpG1RqqAuojgVNOmTWrQp2SAlYLy1mIGSL65f-FkQvwTu-2kwzmL_Bex5YxgZvKwzTtFKUsxpuNdTVBGf9g9hyuqVylJDiyDQwMKoSGeAAykBh0J4jlnziPmSIUvqn9c'
             }
         };
-        request(options, doAction) 
+        request(options, doAction)
 
         poller.poll(); // Go for the next poll
     });
@@ -61,12 +61,15 @@ function doAction(error, response, body) {
 }
 
 function getPaletteFromURL(imageUrl, callback) {
-        //create canvas and image
-        var img = new Image()
-        img.src = imageUrl
-        img.crossOrigin = 'Anonymous'
+    //create canvas and image
+    var img = new Image()
+    img.src = imageUrl
+    img.crossOrigin = 'Anonymous'
 
-        img.onload = () => callback(new ColorThief().getPalette(img, 5, 5))
+    img.onload = () => callback(new ColorThief().getPalette(img, 4, 2))
+}
+
+function logColor(color) {
 }
 
 function processColors(palette) {
@@ -74,27 +77,30 @@ function processColors(palette) {
     var secondaryColor = palette[1]
     var tertiaryColor = palette[2]
 
-    console.log(chalk.bold.rgb(primaryColor[0], primaryColor[1], primaryColor[2])('PRIMARY COLOR'))
-    console.log(chalk.bold.rgb(secondaryColor[0], secondaryColor[1], secondaryColor[2])('SECONDARY COLOR'))
-    console.log(chalk.bold.rgb(tertiaryColor[0], tertiaryColor[1], tertiaryColor[2])('TERTIARY COLOR'))
-
-    var lampCIEColor = ColorConverter.rgb_to_cie(primaryColor[0], primaryColor[1], primaryColor[2])
-
-    //set color on ambiance light
-    setLamp(lampCIEColor[0], lampCIEColor[1], 3)
+    //set colors on lights
+    setLamp(primaryColor, 3);
+    setLamp(secondaryColor, 7);
+    setLamp(tertiaryColor, 8);
 }
 
-function setLamp(x, y, lightNumber) {
-    var myX = Number(x)
-    var myY = Number(y)
+function setLamp(color, lightNumber) {
+    var r = color[0];
+    var g = color[1];
+    var b = color[2];
+
+    let cieColor = ColorConverter.rgb_to_cie(r, g, b)
+
+    var myX = Number(cieColor[0])
+    var myY = Number(cieColor[1])
     var hubIP = '192.168.1.219'
     var username = '974DELC9EApDxKHu3W5P2fjMCE7YWbrM2LmVRoJv'
     var URL = `http://${hubIP}/api/${username}/lights/${lightNumber}/state`
 
     const options = {
         json: true,
-        body:  { 'on': true, 'sat': 254, 'bri': 254, 'xy': [myX, myY] }
+        body: { 'on': true, 'sat': 254, 'bri': 254, 'xy': [myX, myY] }
     }
 
+    console.log(chalk.bold.rgb(r, g, b)('COLOR') + ` XY: ${ColorConverter.rgb_to_cie(r, g, b)}`)
     request.put(URL, options);
 }
