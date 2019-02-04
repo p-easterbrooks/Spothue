@@ -1,10 +1,48 @@
 var imgUrl
 
+/*const hueApi = require()
+import SpotifyWebApi from 'spotify-web-api-js'
+var spotifyApi = new SpotifyWebApi()*/
+
+// Get the hash of the url
+const hash = window.location.hash
+.substring(1)
+.split('&')
+.reduce(function (initial, item) {
+  if (item) {
+    var parts = item.split('=');
+    initial[parts[0]] = decodeURIComponent(parts[1]);
+  }
+  return initial;
+}, {});
+window.location.hash = '';
+
+// Set token
+let _token = hash.access_token;
+
+/* Implicit grant flow */
+const authEndpoint = 'https://accounts.spotify.com/authorize';
+const clientId = '451b6dddb0b24b1cbad3e071aa8fe9d0';
+const redirectUri = location.href
+const scopes = [
+  'user-read-currently-playing',
+  'user-read-playback-state'
+];
+// If there is no token, redirect to Spotify authorization
+if (!_token) {
+    window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
+}
+
+//spotifyApi.setAccessToken(_token)
+
+
+
+
 (function poll () {
     $.ajax({
         url: 'https://api.spotify.com/v1/me/player/currently-playing',
         beforeSend: function (request) {
-            request.setRequestHeader('Authorization', 'Bearer BQBC1ysqKKV25fv3GkOaBzWefV0x1fA4Ti4QU3DHjLSZHjGfdz3L70koADqvSaAaL4J119r0d0f39y_jHUhGOVojxzLYAPDdhWuBlsa5lHVVAjbR2RS1Fqtn06RX5dhy8CU93R57P95WEyNal-pDyQDMU0Y')
+            request.setRequestHeader('Authorization', 'Bearer ' + _token)
         },
         type: 'GET',
         success: function (data) {
@@ -71,3 +109,4 @@ function setLamp (x, y, lightNumber) {
       contentType: 'application/json'
   })
 }
+

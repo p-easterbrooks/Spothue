@@ -1,0 +1,27 @@
+{
+  "name": "spotihue",
+  "version": "1.0.0",
+  "description": "![Spothue logo](http://johngeorgesample.com/documents/images/spothue.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p-easterbrooks/spotihue.git"
+  },
+  "author": "p-easterbrooks <p.easterbrooks@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/p-easterbrooks/spotihue/issues"
+  },
+  "homepage": "https://github.com/p-easterbrooks/spotihue#readme",
+  "devDependencies": {
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  },
+  "dependencies": {
+    "node-hue-api": "^2.4.4",
+    "spotify-web-api-js": "^1.2.0"
+  }
+}
