@@ -21,6 +21,7 @@
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
+    "@mariotacke/color-thief": "^3.0.1",
     "node-hue-api": "^2.4.4",
     "spotify-web-api-js": "^1.2.0"
   }
