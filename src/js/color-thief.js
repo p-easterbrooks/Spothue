@@ -27,9 +27,11 @@ var Canvas = require('canvas')
   with a set of helper functions.
 */
 var CanvasImage = function (image) {
-    this.canvas = new Canvas.Canvas(300, 300)
+    this.canvas = Canvas.createCanvas(300, 300)
 
     this.context = this.canvas.getContext('2d');
+
+    image.crossOrigin = "Anonymous";
 
     this.width = this.canvas.width = image.width;
     this.height = this.canvas.height = image.height;

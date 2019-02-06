@@ -25,7 +25,6 @@
     "terser": "3.14.1"
   },
   "dependencies": {
-    "@mariotacke/color-thief": "^3.0.1",
     "spotify-web-api-js": "^1.2.0"
   }
 }
