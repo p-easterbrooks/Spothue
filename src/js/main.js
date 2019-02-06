@@ -1,4 +1,3 @@
-
 const Poller = require('./Poller')
 const SpotifyController = require('./SpotifyController')
 const HueController = require('./HueController')
@@ -28,37 +27,3 @@ poller.onPoll(() => {
 
 // Initial start
 poller.poll();
-
-function getCIEColor(color) {
-    var r = color[0]
-    var g = color[1]
-    var b = color[2]
-
-    return rgb_to_cie(r, g, b)
-}
-
-function getPaletteFromUrl(imageUrl, callback) {
-    sourceImage = document.createElement('img')
-    sourceImage.crossOrigin = 'Anonymous'
-    var thief = new ColorThief()
-    sourceImage.src = imageUrl
-    sourceImage.onload = function () {
-        callback(thief.getPalette(sourceImage, 5, 5))
-    };
-}
-
-function setLamp(x, y, lightNumber) {
-    var myX = Number(x)
-    var myY = Number(y)
-    var hubIP = '192.168.1.219'
-    var username = '974DELC9EApDxKHu3W5P2fjMCE7YWbrM2LmVRoJv'
-    var URL = 'http://' + hubIP + '/api/' + username + '/lights/' + lightNumber + '/state'
-    var dataObject = { 'on': true, 'sat': 254, 'bri': 254, 'xy': [myX, myY] }
-
-    $.ajax({
-        url: URL,
-        type: 'PUT',
-        data: JSON.stringify(dataObject),
-        contentType: 'application/json'
-    })
-}

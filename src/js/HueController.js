@@ -1,4 +1,3 @@
-
 const ColorConverter = require('./color-converter')
 const ColorThief = require('./color-thief')
 
@@ -58,6 +57,14 @@ class HueController {
             data: JSON.stringify(dataObject),
             contentType: 'application/json'
         })
+    }
+
+    getCIEColor(color) {
+        var r = color[0]
+        var g = color[1]
+        var b = color[2]
+    
+        return ColorConverter.rgb_to_cie(r, g, b)
     }
 
 }

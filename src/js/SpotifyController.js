@@ -36,12 +36,6 @@ class SpotifyController {
     exposeSpotifyApi () {
         return spotifyApi
     }
-
-    getCurrentlyPlayingTrack () {
-
-    }
-
-
 }
 
 module.exports = SpotifyController
