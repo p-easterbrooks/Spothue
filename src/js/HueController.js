@@ -28,6 +28,7 @@ class HueController {
 
         console.log(img)
 
+
         img.onload = () => callback(new ColorThief().getPalette(img, 4, 2))
     }
 
