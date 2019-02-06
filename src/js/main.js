@@ -15,51 +15,14 @@ let poller = new Poller(2000)
 poller.onPoll(() => {
     console.log('polling');
     let spotifyApi = spotifyWrapper.exposeSpotifyApi()
-    spotifyApi.setAccessToken('BQBpUR6PFgFEn-ZEDIM3fxdXgynBeEoKnLoShj9sppppuqg6k9CiKVJpKpEzWviNCRoJbAwbzwvnVlOw2glI3FDfngJ8cJV7z33qm-3Bptu3rNOO7_SKTdgWjI98ODxeXMA-oJ2kgEBldKSySdBuCmH9MsA')
+    spotifyApi.setAccessToken('BQB7XNYydnoC1bs-LDPEKGDLEtWfwwP-Zi-fe1tRsx4ok3Mky-62aK4fCiP4SOathNLqqn9fJOla-M-PfKED3ec3Vscl8Iok_xjml9ACRy_AsNJ2vU7f89id1trYXuDg-b0i17gILV0cP1FsfmTMJQs-riQ')
     spotifyApi.getMyCurrentPlayingTrack().then(
-        function(data) {
-            hueWrapper.processColors(data)
-        },
-        function(err) {
-            console.error(err);
-        })
+        (data) => hueWrapper.processColors(data),
+        (err) => console.error(err)
+    )
 
     poller.poll(); // Go for the next poll
 });
 
 // Initial start
 poller.poll();
-
-function getCIEColor(color) {
-    var r = color[0]
-    var g = color[1]
-    var b = color[2]
-
-    return rgb_to_cie(r, g, b)
-}
-
-function getPaletteFromUrl(imageUrl, callback) {
-    sourceImage = document.createElement('img')
-    sourceImage.crossOrigin = 'Anonymous'
-    var thief = new ColorThief()
-    sourceImage.src = imageUrl
-    sourceImage.onload = function () {
-        callback(thief.getPalette(sourceImage, 5, 5))
-    };
-}
-
-function setLamp(x, y, lightNumber) {
-    var myX = Number(x)
-    var myY = Number(y)
-    var hubIP = '192.168.1.219'
-    var username = '974DELC9EApDxKHu3W5P2fjMCE7YWbrM2LmVRoJv'
-    var URL = 'http://' + hubIP + '/api/' + username + '/lights/' + lightNumber + '/state'
-    var dataObject = { 'on': true, 'sat': 254, 'bri': 254, 'xy': [myX, myY] }
-
-    $.ajax({
-        url: URL,
-        type: 'PUT',
-        data: JSON.stringify(dataObject),
-        contentType: 'application/json'
-    })
-}
