@@ -19,7 +19,8 @@
   "devDependencies": {
     "terser": "^3.14.1",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.2.1",
+    "jshint": "^2.10.1"
   },
   "resolutions": {
     "terser": "3.14.1"

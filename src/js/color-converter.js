@@ -92,14 +92,17 @@ class ColorConverter {
         green = Math.round(green * 255);
         blue = Math.round(blue * 255);
 
-        if (isNaN(red))
+        if (isNaN(red)) {
             red = 0;
+        }
 
-        if (isNaN(green))
+        if (isNaN(green)) {
             green = 0;
+        }
 
-        if (isNaN(blue))
+        if (isNaN(blue)) {
             blue = 0;
+        }
 
 
         return [red, green, blue];
@@ -128,13 +131,14 @@ class ColorConverter {
         var x = (X / (X + Y + Z)).toFixed(4);
         var y = (Y / (X + Y + Z)).toFixed(4);
 
-        if (isNaN(x))
+        if (isNaN(x)) {
             x = 0;
+        }
 
-        if (isNaN(y))
+        if (isNaN(y)) {
             y = 0;
-
-
+        }
+        
         return [x, y];
     }
 }
