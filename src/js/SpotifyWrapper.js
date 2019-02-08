@@ -2,7 +2,7 @@ var Spotify = require('spotify-web-api-js')
 var spotifyApi = new Spotify()
 
 class SpotifyWrapper {
-    authenticateSpotify () {
+    authenticate () {
         const hash = window.location.hash
             .substring(1)
             .split('&')

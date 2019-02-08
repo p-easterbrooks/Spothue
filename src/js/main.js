@@ -6,7 +6,7 @@ const HueWrapper = require('./HueWrapper')
 let spotifyWrapper = new SpotifyWrapper()
 let hueWrapper = new HueWrapper('192.168.1.219', '974DELC9EApDxKHu3W5P2fjMCE7YWbrM2LmVRoJv')
 
-//spotifyWrapper.authenticateSpotify()
+//spotifyWrapper.authenticate()
 
 //new poller with 2 second timeout
 let poller = new Poller(2000)
