@@ -118,9 +118,9 @@ class ColorConverter {
      */
     static rgb_to_cie(red, green, blue) {
         //Apply a gamma correction to the RGB values, which makes the color more vivid and more the like the color displayed on the screen of your device
-        var red = (red > 0.04045) ? Math.pow((red + 0.055) / (1.0 + 0.055), 2.4) : (red / 12.92);
-        var green = (green > 0.04045) ? Math.pow((green + 0.055) / (1.0 + 0.055), 2.4) : (green / 12.92);
-        var blue = (blue > 0.04045) ? Math.pow((blue + 0.055) / (1.0 + 0.055), 2.4) : (blue / 12.92);
+        red = (red > 0.04045) ? Math.pow((red + 0.055) / (1.0 + 0.055), 2.4) : (red / 12.92);
+        green = (green > 0.04045) ? Math.pow((green + 0.055) / (1.0 + 0.055), 2.4) : (green / 12.92);
+        blue = (blue > 0.04045) ? Math.pow((blue + 0.055) / (1.0 + 0.055), 2.4) : (blue / 12.92);
 
         //RGB values to XYZ using the Wide RGB D65 conversion formula
         var X = red * 0.664511 + green * 0.154324 + blue * 0.162028;
