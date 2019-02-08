@@ -1,7 +1,7 @@
 const ColorConverter = require('./color-converter')
 const ColorThief = require('./color-thief')
 
-class HueController {
+class HueWrapper {
     constructor(hubIp, hubUser) {
         this.hubIp = hubIp
         this.hubUser = hubUser
@@ -70,4 +70,4 @@ class HueController {
 
 }
 
-module.exports = HueController
+module.exports = HueWrapper

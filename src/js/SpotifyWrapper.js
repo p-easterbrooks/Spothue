@@ -1,7 +1,7 @@
 var Spotify = require('spotify-web-api-js')
 var spotifyApi = new Spotify()
 
-class SpotifyController {    
+class SpotifyWrapper {
     authenticateSpotify () {
         const hash = window.location.hash
             .substring(1)
@@ -38,4 +38,4 @@ class SpotifyController {
     }
 }
 
-module.exports = SpotifyController
+module.exports = SpotifyWrapper

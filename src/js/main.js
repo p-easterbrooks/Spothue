@@ -1,10 +1,10 @@
 
 const Poller = require('./Poller')
-const SpotifyController = require('./SpotifyController')
-const HueController = require('./HueController')
+const SpotifyWrapper = require('./SpotifyWrapper')
+const HueWrapper = require('./HueWrapper')
 
-let spotifyWrapper = new SpotifyController()
-let hueWrapper = new HueController('192.168.1.219', '974DELC9EApDxKHu3W5P2fjMCE7YWbrM2LmVRoJv')
+let spotifyWrapper = new SpotifyWrapper()
+let hueWrapper = new HueWrapper('192.168.1.219', '974DELC9EApDxKHu3W5P2fjMCE7YWbrM2LmVRoJv')
 
 //spotifyWrapper.authenticateSpotify()
 
