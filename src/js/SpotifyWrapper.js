@@ -1,6 +1,9 @@
 var Spotify = require('spotify-web-api-js')
 var spotifyApi = new Spotify()
 
+/**
+ * Provides a wrapper for Spotify-related business logic
+ */
 class SpotifyWrapper {
     authenticate () {
         const hash = window.location.hash

@@ -1,6 +1,9 @@
 const ColorConverter = require('./color-converter')
 const ColorThief = require('./color-thief')
 
+/**
+ * Provides a wrapper for Philips Hue-related business logic
+ */
 class HueWrapper {
     constructor(hubIp, hubUser) {
         this.hubIp = hubIp
