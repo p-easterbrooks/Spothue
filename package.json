@@ -17,15 +17,17 @@
   },
   "homepage": "https://github.com/p-easterbrooks/spotihue#readme",
   "devDependencies": {
+    "jshint": "^2.10.1",
+    "less-loader": "^4.1.0",
     "terser": "^3.14.1",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1",
-    "jshint": "^2.10.1"
+    "webpack-cli": "^3.2.1"
   },
   "resolutions": {
     "terser": "3.14.1"
   },
   "dependencies": {
+    "dgram": "^1.0.1",
     "js-cookie": "^2.2.0",
     "node-hue-api": "^2.4.4",
     "spotify-web-api-js": "^1.2.0"
