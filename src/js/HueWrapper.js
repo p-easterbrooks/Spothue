@@ -16,7 +16,7 @@ class HueWrapper {
         this.imgUrl = ''
     }
 
-    init(callback) {
+    init(callback) {        
         if (this.hueIp === undefined) {
             HueConfig.nupnpSearch().then((bridge) => {
                 if (Array.isArray(bridge) && bridge.length) {
@@ -24,10 +24,11 @@ class HueWrapper {
                     this.hubIp = bridge[0].ipaddress
                     this[_findOrCreateUser]()
                 } else {
-                    Hue.upnpSearch(timeout).then((bridge) => {
-                        this.hubIp = bridge.ipaddress
-                        this[_findOrCreateUser]()
-                    })
+                    Promise.all([Hue.upnpSearch(timeout), this[_findOrCreateUser]()])
+                        .then((results) => {
+                            this.hubIp = results[0].ipaddress;
+                        }
+                    )
                 }
             })
         }
