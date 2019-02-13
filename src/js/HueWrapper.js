@@ -1,17 +1,63 @@
 const ColorConverter = require('./color-converter')
-const ColorThief = require('./color-thief')
+//const ColorThief = require('./color-thief')
+const Cookies = require('js-cookie')
+const HueConfig = require('node-hue-api')
+const hue = new HueConfig.HueApi()
+const _findOrCreateUser = Symbol('findOrCreateUser')
+const timeout = 2000
 
 /**
  * Provides a wrapper for Philips Hue-related business logic
  */
-class HueWrapper {
-    constructor(hubIp, hubUser) {
-        this.hubIp = hubIp
+class HueWrapper {    
+    constructor(hubUser, hubIp) {
         this.hubUser = hubUser
+        this.hubIp = hubIp
         this.imgUrl = ''
     }
 
-    processColors (data) {
+    init(callback) {
+        if (this.hueIp === undefined) {
+            HueConfig.nupnpSearch().then((bridge) => {
+                if (Array.isArray(bridge) && bridge.length) {
+                    console.log(bridge[0].ipaddress)
+                    this.hubIp = bridge[0].ipaddress
+                    this[_findOrCreateUser]()
+                } else {
+                    Hue.upnpSearch(timeout).then((bridge) => {
+                        this.hubIp = bridge.ipaddress
+                        this[_findOrCreateUser]()
+                    })
+                }
+            })
+        }
+
+        callback()
+    }
+
+    [_findOrCreateUser]() {
+        if (this.hubUser === undefined) {
+            //find
+            let cookieUser = Cookies.get('hubUser')
+            if (cookieUser !== undefined) {
+                this.hubUser = cookieUser  
+            } 
+
+            //create
+            console.log('About to register user. Hub IP is: ' + this.hubIp)        
+            hue.registerUser(this.hubIp, 'Spotihue').then((user) => {
+                console.log('New user registered: ' + user)
+                this.hubUser = user
+                Cookies.set('hubUser', this.hubUser)
+            })
+            .fail((err) => {
+                console.log("Please press your hub's link button")
+            })
+            .done()          
+        }
+    }
+
+    /*processColors (data) {
         if (data.item.album.images[1].url !== this.imgUrl) {
             console.log('NEW IMAGE')
             this.imgUrl = data.item.album.images[1].url
@@ -69,7 +115,7 @@ class HueWrapper {
         //set colors on UI
         $('#title').css('color', 'rgb(' + primaryColor[0] + ',' + primaryColor[1] + ',' + primaryColor[2] + ')')
         $('body').css('backgroundColor', 'rgb(' + secondaryColor[0] + ',' + secondaryColor[1] + ',' + secondaryColor[2] + ')')
-    }
+    }*/
 
 }
 
