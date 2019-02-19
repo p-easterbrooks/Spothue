@@ -1,5 +1,5 @@
 const ColorConverter = require('./color-converter')
-//const ColorThief = require('./color-thief')
+const ColorThief = require('./color-thief')
 const Cookies = require('js-cookie')
 const HueConfig = require('node-hue-api')
 const hue = new HueConfig.HueApi()
@@ -27,13 +27,12 @@ class HueWrapper {
                     Promise.all([Hue.upnpSearch(timeout), this[_findOrCreateUser]()])
                         .then((results) => {
                             this.hubIp = results[0].ipaddress;
+                            callback()
                         }
                     )
                 }
             })
         }
-
-        callback()
     }
 
     [_findOrCreateUser]() {
@@ -58,7 +57,7 @@ class HueWrapper {
         }
     }
 
-    /*processColors (data) {
+    processColors (data) {
         if (data.item.album.images[1].url !== this.imgUrl) {
             console.log('NEW IMAGE')
             this.imgUrl = data.item.album.images[1].url
@@ -116,7 +115,7 @@ class HueWrapper {
         //set colors on UI
         $('#title').css('color', 'rgb(' + primaryColor[0] + ',' + primaryColor[1] + ',' + primaryColor[2] + ')')
         $('body').css('backgroundColor', 'rgb(' + secondaryColor[0] + ',' + secondaryColor[1] + ',' + secondaryColor[2] + ')')
-    }*/
+    }
 
 }
 
