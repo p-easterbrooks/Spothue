@@ -15,7 +15,7 @@ module.exports = {
     hot: true,
     historyApiFallback: true,
     host: 'spotihue.dev',
-    open: 'Safari',
+    open: 'Google Chrome',
     https: {
       key: tlsOptions.key,
       cert: tlsOptions.cert

@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/p-easterbrooks/spotihue#readme",
   "devDependencies": {
-    "dev-cert-authority": "^1.1.1",
+    "dev-cert-authority": "github:apkrasny/dev-cert-authority",
     "express": "^4.16.4",
     "jshint": "^2.10.1",
     "terser": "^3.14.1",
