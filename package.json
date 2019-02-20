@@ -2,8 +2,8 @@
   "name": "spotihue",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "webpack-dev-server"
+    "build": "webpack",
+    "dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/p-easterbrooks/spotihue#readme",
   "devDependencies": {
+    "css-loader": "^2.1.0",
     "dev-cert-authority": "github:apkrasny/dev-cert-authority",
     "express": "^4.16.4",
     "jshint": "^2.10.1",

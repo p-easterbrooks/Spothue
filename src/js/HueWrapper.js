@@ -5,6 +5,7 @@ const HueConfig = require('node-hue-api')
 const hue = new HueConfig.HueApi()
 const _findOrCreateUser = Symbol('findOrCreateUser')
 const timeout = 2000
+var imgUrl
 
 /**
  * Provides a wrapper for Philips Hue-related business logic
@@ -13,7 +14,6 @@ class HueWrapper {
     constructor(hubUser, hubIp) {
         this.hubUser = hubUser
         this.hubIp = hubIp
-        this.imgUrl = ''
     }
 
     init(callback) {        
@@ -58,27 +58,30 @@ class HueWrapper {
     }
 
     processColors (data) {
-        if (data.item.album.images[1].url !== this.imgUrl) {
+        if (data.item.album.images[1].url !== imgUrl) {
             console.log('NEW IMAGE')
-            this.imgUrl = data.item.album.images[1].url
+            imgUrl = data.item.album.images[1].url
     
             $('.bg-image-blur, .bg-image').fadeTo(375, 0, function () {
                 $(this).css('background-image', 'url(\'' + this.imgUrl + '\')')
             }).fadeTo(375, 1)
     
-            this.getPaletteFromUrl(this.imgUrl, (palette) => this.processPalette(palette))
+            console.log("URL IS: " + imgUrl)
+            this.getPaletteFromUrl(imgUrl, (palette) => {
+                this.processPalette(palette)
+            })
         }
     }
 
     getPaletteFromUrl(imageUrl, callback) {
-        var img = document.createElement('img')
-        img.crossOrigin = 'Anonymous'
-        img.src = imageUrl
-
-        console.log(img)
-
-
-        img.onload = () => callback(new ColorThief().getPalette(img, 4, 2))
+        console.log("PALETTE URL IS: " + imageUrl)
+        let sourceImage = document.createElement('img')
+        sourceImage.crossOrigin = 'Anonymous'
+        var thief = new ColorThief()
+        sourceImage.src = imageUrl
+        sourceImage.onload = function () {
+          callback(thief.getPalette(sourceImage, 5, 5))
+        };
     }
 
     setLamp(x, y, lightNumber) {
