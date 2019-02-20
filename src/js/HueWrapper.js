@@ -63,7 +63,7 @@ class HueWrapper {
             imgUrl = data.item.album.images[1].url
     
             $('.bg-image-blur, .bg-image').fadeTo(375, 0, function () {
-                $(this).css('background-image', 'url(\'' + this.imgUrl + '\')')
+                $(this).css('background-image', 'url(\'' + imgUrl + '\')')
             }).fadeTo(375, 1)
     
             console.log("URL IS: " + imgUrl)
