@@ -15,6 +15,7 @@ class HueWrapper {
     constructor(hubIp, hubUser) {
         this.hubUser = hubUser
         this.hubIp = hubIp
+        this.init(() => console.log('good init'))
     }
 
     init(callback) {        

@@ -94,7 +94,8 @@ const SpotifyWrapper = __webpack_require__(3)
 const HueWrapper = __webpack_require__(5)
 
 let spotifyWrapper = new SpotifyWrapper()
-let hueWrapper = new HueWrapper('192.168.1.219', '974DELC9EApDxKHu3W5P2fjMCE7YWbrM2LmVRoJv')
+//let hueWrapper = new HueWrapper('192.168.1.219', '974DELC9EApDxKHu3W5P2fjMCE7YWbrM2LmVRoJv')
+let hueWrapper = new HueWrapper()
 
 spotifyWrapper.authenticate()
 
@@ -2424,6 +2425,7 @@ class HueWrapper {
     constructor(hubIp, hubUser) {
         this.hubUser = hubUser
         this.hubIp = hubIp
+        this.init(() => console.log('good init'))
     }
 
     init(callback) {        
