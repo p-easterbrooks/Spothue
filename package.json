@@ -29,7 +29,6 @@
     "terser": "3.14.1"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
     "dgram": "^1.0.1",
     "js-cookie": "^2.2.0",
     "node-hue-api": "^2.4.4",

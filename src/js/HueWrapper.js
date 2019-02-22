@@ -5,7 +5,6 @@ const HueConfig = require('node-hue-api')
 const hue = new HueConfig.HueApi()
 const _findOrCreateUser = Symbol('findOrCreateUser')
 const timeout = 2000
-const chalk = require('chalk')
 var imgUrl
 
 /**
@@ -99,7 +98,7 @@ class HueWrapper {
     
         let dataObject = { 'on': true, 'sat': 254, 'bri': 254, 'xy': [myX, myY] }
 
-        console.log(chalk.bold.rgb(r, g, b)('COLOR') + ` XY: ${ColorConverter.rgb_to_cie(r, g, b)}`)
+        console.log(`Color XY: ${ColorConverter.rgb_to_cie(r, g, b)}`)
         $.ajax({
             url: URL,
             type: 'PUT',
