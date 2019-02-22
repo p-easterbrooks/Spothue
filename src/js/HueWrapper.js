@@ -5,13 +5,14 @@ const HueConfig = require('node-hue-api')
 const hue = new HueConfig.HueApi()
 const _findOrCreateUser = Symbol('findOrCreateUser')
 const timeout = 2000
+const chalk = require('chalk')
 var imgUrl
 
 /**
  * Provides a wrapper for Philips Hue-related business logic
  */
 class HueWrapper {    
-    constructor(hubUser, hubIp) {
+    constructor(hubIp, hubUser) {
         this.hubUser = hubUser
         this.hubIp = hubIp
     }
@@ -84,18 +85,26 @@ class HueWrapper {
         };
     }
 
-    setLamp(x, y, lightNumber) {
-        let myX = Number(x)
-        let myY = Number(y)
-        let URL = 'http://' + this.hubIp + '/api/' + this.hubUser + '/lights/' + lightNumber + '/state'
-        let dataObject = { 'on': true, 'sat': 254, 'bri': 254, 'xy': [myX, myY] }
+    setLamp(color, lightNumber) {
+        let r = color[0];
+        let g = color[1];
+        let b = color[2];
     
+        let cieColor = ColorConverter.rgb_to_cie(r, g, b)
+    
+        let myX = Number(cieColor[0])
+        let myY = Number(cieColor[1])
+        let URL = `https://${this.hubIp}/api/${this.hubUser}/lights/${lightNumber}/state`
+    
+        let dataObject = { 'on': true, 'sat': 254, 'bri': 254, 'xy': [myX, myY] }
+
+        console.log(chalk.bold.rgb(r, g, b)('COLOR') + ` XY: ${ColorConverter.rgb_to_cie(r, g, b)}`)
         $.ajax({
             url: URL,
             type: 'PUT',
             data: JSON.stringify(dataObject),
             contentType: 'application/json'
-        })
+        })    
     }
 
     getCIEColor(color) {
@@ -107,13 +116,15 @@ class HueWrapper {
     }
 
     processPalette(palette) {
-        let primaryColor = palette[0]
-        let secondaryColor = palette[1]
-
-        let lampCIEColor = this.getCIEColor(primaryColor)
-
-        //set color on ambiance light
-        this.setLamp(lampCIEColor[0], lampCIEColor[1], 3)
+        var primaryColor = palette[0]
+        console.log(primaryColor)
+        var secondaryColor = palette[1]
+        var tertiaryColor = palette[2]
+    
+        //set colors on lights
+        this.setLamp(primaryColor, 3);
+        this.setLamp(secondaryColor, 7);
+        this.setLamp(tertiaryColor, 8);
 
         //set colors on UI
         $('#title').css('color', 'rgb(' + primaryColor[0] + ',' + primaryColor[1] + ',' + primaryColor[2] + ')')
