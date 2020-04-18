@@ -2527,11 +2527,14 @@ class HueWrapper {
         console.log(primaryColor)
         var secondaryColor = palette[1]
         var tertiaryColor = palette[2]
+        var fourthColor = palette[3]
     
         //set colors on lights
         this.setLamp(primaryColor, 3);
         this.setLamp(secondaryColor, 7);
         this.setLamp(tertiaryColor, 8);
+        this.setLamp(fourthColor, 9);
+        console.log('fourthColor: ' + fourthColor)
 
         //set colors on UI
         $('#title').css('color', 'rgb(' + primaryColor[0] + ',' + primaryColor[1] + ',' + primaryColor[2] + ')')
