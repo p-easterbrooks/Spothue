@@ -94,7 +94,7 @@ class HueWrapper {
     
         let myX = Number(cieColor[0])
         let myY = Number(cieColor[1])
-        let URL = `https://${this.hubIp}/api/${this.hubUser}/lights/${lightNumber}/state`
+        let URL = `http://${this.hubIp}/api/${this.hubUser}/lights/${lightNumber}/state`
     
         let dataObject = { 'on': true, 'sat': 254, 'bri': 254, 'xy': [myX, myY] }
 
@@ -121,12 +121,14 @@ class HueWrapper {
         var secondaryColor = palette[1]
         var tertiaryColor = palette[2]
         var fourthColor = palette[3]
+        var fifthColor= palette[4]
     
         //set colors on lights
-        this.setLamp(primaryColor, 3);
-        this.setLamp(secondaryColor, 7);
-        this.setLamp(tertiaryColor, 8);
-        this.setLamp(fourthColor, 9);
+        this.setLamp(primaryColor, 7);
+        this.setLamp(primaryColor, 10);
+        this.setLamp(secondaryColor, 8);
+        this.setLamp(secondaryColor, 11);
+        this.setLamp(tertiaryColor, 3);
         console.log('fourthColor: ' + fourthColor)
 
         //set colors on UI
